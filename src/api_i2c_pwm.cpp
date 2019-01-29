@@ -56,9 +56,9 @@ api_pwm_pca9685_init( PCA9685 *pca9685)
     pca9685->setPWMFrequency( PWM_FREQ ) ;
     // Set the PWM to "neutral" (1.5ms)
     sleep(1) ;
-    int pwm2 = map( 0, MIN_ANGLE, MAX_ANGLE, STEERING_MAX_RIGHT2, STEERING_MAX_LEFT2 );
-    pca9685->setPWM(STEERING_CHANNEL2, 0, pwm2);
-    pca9685->setPWM(STEERING_CHANNEL1, 0, pwm2);
+    int pwm2 = map( 0, MIN_ANGLE, MAX_ANGLE, CAMERA_MAX_RIGHT, CAMERA_MAX_LEFT );
+    pca9685->setPWM(CAMERA_CHANNEL, 0, pwm2);
+    pca9685->setPWM(STEERING_CHANNEL, 0, pwm2);
     pca9685->setPWM(THROTTLE_CHANNEL,0,THROTTLE_NEUTRAL);
 	sleep(1) ;
 }
@@ -102,10 +102,20 @@ int api_set_STEERING_control( PCA9685 *pca9685,double &theta)
     if( theta > MAX_ANGLE )
         theta = MAX_ANGLE;
         
-    int pwm2 = map( theta, MIN_ANGLE, MAX_ANGLE, STEERING_MAX_RIGHT2, STEERING_MAX_LEFT2 ); 
-    pca9685->setPWM(STEERING_CHANNEL2,0, pwm2);
-	int pwm1 = map( -theta, MIN_ANGLE, MAX_ANGLE, STEERING_MAX_RIGHT1, STEERING_MAX_LEFT1 ); 
-    pca9685->setPWM(STEERING_CHANNEL1,0, pwm1);
+	int pwm1 = map( -theta, MIN_ANGLE, MAX_ANGLE, STEERING_MAX_RIGHT, STEERING_MAX_LEFT); 
+    pca9685->setPWM(STEERING_CHANNEL,0, pwm1);
+    return pwm1;
+}
+int api_set_CAMERA_control( PCA9685 *pca9685,double &theta)
+{
+    if( theta < MIN_ANGLE)
+        theta = MIN_ANGLE;
+
+    if( theta > MAX_ANGLE )
+        theta = MAX_ANGLE;
+        
+    int pwm2 = map( theta, MIN_ANGLE, MAX_ANGLE, CAMERA_MAX_RIGHT, CAMERA_MAX_LEFT ); 
+    pca9685->setPWM(CAMERA_CHANNEL,0, pwm2);
     return pwm2;
 }
 
