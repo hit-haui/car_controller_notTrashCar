@@ -1,7 +1,8 @@
 
 #include "api_i2c_pwm.h"
 
-int dir = true;
+int dir1 = true;
+int dir2 = true;
 
 int
 getkey()
@@ -81,10 +82,10 @@ api_pwm_pca9685_release( PCA9685 *pca9685 )
 ////////////////////////////////
 int api_set_FORWARD_control( PCA9685 *pca9685,double &throttle_val)
 {       
-    if (!dir)
+    if (!dir1)
     {
 	pca9685->setPWM(THROTTLE_CHANNEL,0,THROTTLE_NEUTRAL) ;
-	dir = !dir;
+	dir1 = !dir1;
 	usleep(100000) ;
     }
     int pwm = map( throttle_val, 0, 100, THROTTLE_NEUTRAL, THROTTLE_MAX_FORWARD ); 
@@ -95,6 +96,17 @@ int api_set_BRAKE_control( PCA9685 *pca9685,double &throttle_val)
 {     
     pca9685->setPWM(THROTTLE_CHANNEL,0, THROTTLE_MAX_REVERSE);
     usleep(1000);
+}
+int api_set_BACKWARD_control( PCA9685 *pca9685,double &throttle_val)
+{
+    if (!dir2)
+    {
+	pca9685->setPWM(THROTTLE_CHANNEL,0,THROTTLE_NEUTRAL) ;
+	dir2 = !dir2;
+	usleep(100000) ;
+    }
+    int pwm = map( throttle_val, 0, 100, THROTTLE_MAX_REVERSE, THROTTLE_NEUTRAL);
+    pca9685->setPWM(THROTTLE_CHANNEL,0, pwm);
 }
 int api_set_STEERING_control( PCA9685 *pca9685,double &theta)
 {

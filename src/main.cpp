@@ -6,14 +6,19 @@ PCA9685 *pca9685 = new PCA9685() ;
 
 void set_speed_car(const std_msgs::Float32::ConstPtr& msg){
     double speed=msg->data;
-    if (speed >= 0)
+    if (speed > 0)
     {
         api_set_FORWARD_control(pca9685, speed);
     }
-	else
+	else if (speed == 0)
     {
         api_set_BRAKE_control(pca9685, speed);
     }
+    else
+    {
+        api_set_BACKWARD_control(pca9685, speed);
+    }
+    
 	ROS_INFO("new throttle: [%f]",speed);
 }
 void set_steer_car(const std_msgs::Float32::ConstPtr& msg){
