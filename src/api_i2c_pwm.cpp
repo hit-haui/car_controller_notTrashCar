@@ -41,6 +41,7 @@ map (double x, int in_min, int in_max, int out_min, int out_max)
 void
 api_pwm_pca9685_init( PCA9685 *pca9685)
 {
+    cout<<"Hello from init";
     // Initialize the PWM board
     int err = pca9685->openPCA9685();
     if (err < 0)
@@ -54,6 +55,7 @@ api_pwm_pca9685_init( PCA9685 *pca9685)
     pca9685->setAllPWM(0,0) ;
     pca9685->reset() ;
     pca9685->setPWMFrequency( PWM_FREQ ) ;
+    cout<<"Init PWM_FREQ: " << PWM_FREQ;
     // Set the PWM to "neutral" (1.5ms)
     sleep(1) ;
     int pwm2 = map( 0, MIN_ANGLE, MAX_ANGLE, CAMERA_MAX_RIGHT, CAMERA_MAX_LEFT );

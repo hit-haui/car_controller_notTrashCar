@@ -17,7 +17,7 @@ using namespace std;
 // Neutral signal to the ESC is 1.5 ms
 // Full Throttle signal to the ESC is 2 ms
 
-#define PWM_FREQ 95
+#define PWM_FREQ 92
 //dieu khien dong co
 #define THROTTLE_MAX_REVERSE    400 // 153 // 1.0 ms/16.39ms * 4096
 #define THROTTLE_NEUTRAL        610 // 363 // 1.5 ms/16.39ms * 4096
