@@ -58,3 +58,4 @@ int api_set_FORWARD_control(PCA9685 *pca9685,double &throttle_val);
 int api_set_BRAKE_control( PCA9685 *pca9685,double &throttle_val);
 int api_set_STEERING_control(PCA9685 *pca9685,double &theta);
 int api_set_CAMERA_control( PCA9685 *pca9685,double &theta);
+int api_set_BACKWARD_control(PCA9685 *pca9685,double &throttle_val);
